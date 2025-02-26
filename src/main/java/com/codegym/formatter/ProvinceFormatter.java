@@ -1,4 +1,3 @@
-
 package com.codegym.formatter;
 
 import com.codegym.model.Province;

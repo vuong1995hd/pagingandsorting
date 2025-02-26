@@ -1,4 +1,3 @@
-
 package com.codegym.service.impl;
 
 import com.codegym.model.Province;
@@ -13,7 +12,6 @@ import java.util.Optional;
 public class ProvinceService implements IProvinceService {
     @Autowired
     private IProvinceRepository iProvinceRepository;
-
 
     @Override
     public Iterable<Province> findAll() {

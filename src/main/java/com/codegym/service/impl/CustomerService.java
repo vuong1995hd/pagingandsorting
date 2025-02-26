@@ -31,7 +31,6 @@ public class CustomerService implements ICustomerService {
         return iCustomerRepository.findById(id);
     }
 
-
     @Override
     public void remove(Long id) {
         iCustomerRepository.deleteById(id);
@@ -49,6 +48,10 @@ public class CustomerService implements ICustomerService {
 
     @Override
     public Page<Customer> findAllByFirstNameContaining(Pageable pageable, String name) {
-        return iCustomerRepository.findAllByFirstNameContaining(pageable, name);
+        return iCustomerRepository.findAllByFirstNameContaining(name,pageable);
+    }
+    @Override
+    public Page<Customer> findAllByName(Pageable pageable, String name) {
+        return iCustomerRepository.findAllByFirstNameContaining(name,pageable);
     }
 }

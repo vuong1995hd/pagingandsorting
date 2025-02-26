@@ -1,4 +1,3 @@
-
 package com.codegym.controller;
 
 import com.codegym.model.Customer;
@@ -6,8 +5,11 @@ import com.codegym.model.Province;
 import com.codegym.service.ICustomerService;
 import com.codegym.service.IProvinceService;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,9 +21,7 @@ import java.util.Optional;
 @RequestMapping("/customers")
 public class CustomerController {
     @Autowired
-
     private ICustomerService customerService;
-
 
     @Autowired
     private IProvinceService provinceService;
@@ -30,9 +30,9 @@ public class CustomerController {
     public Iterable<Province> listProvinces() {
         return provinceService.findAll();
     }
-
     @GetMapping
-    public ModelAndView listCustomer(Pageable pageable) {
+    public ModelAndView listCustomer(
+            @PageableDefault(size = 5, sort = "firstName", direction = Sort.Direction.ASC) Pageable pageable) {
         Page<Customer> customers = customerService.findAll(pageable);
         ModelAndView modelAndView = new ModelAndView("/customer/list");
         modelAndView.addObject("customers", customers);
@@ -40,9 +40,10 @@ public class CustomerController {
     }
 
     @GetMapping("/search")
-    public ModelAndView listCustomersSearch(@RequestParam("search") Optional<String> search, Pageable pageable){
+    public ModelAndView listCustomerSearch(@RequestParam("search") Optional<String> search,
+                                           @PageableDefault(size = 5, sort = "firstName", direction = Sort.Direction.ASC) Pageable pageable) {
         Page<Customer> customers;
-        if(search.isPresent()){
+        if (search.isPresent()) {
             customers = customerService.findAllByFirstNameContaining(pageable, search.get());
         } else {
             customers = customerService.findAll(pageable);
