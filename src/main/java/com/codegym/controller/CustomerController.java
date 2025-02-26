@@ -22,6 +22,7 @@ public class CustomerController {
 
     private ICustomerService customerService;
 
+
     @Autowired
     private IProvinceService provinceService;
 

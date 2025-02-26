@@ -14,6 +14,7 @@ public class ProvinceService implements IProvinceService {
     @Autowired
     private IProvinceRepository iProvinceRepository;
 
+
     @Override
     public Iterable<Province> findAll() {
         return iProvinceRepository.findAll();
